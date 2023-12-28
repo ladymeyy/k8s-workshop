@@ -1,0 +1,27 @@
+# deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-apps
+  template:
+    metadata:
+      labels:
+        app: python-apps
+    spec:
+      containers:
+      - name: sender
+        image: sender-image:latest  # Update with your Docker image name for App 1
+        imagePullPolicy: never
+        ports:
+        - containerPort: 5000
+      - name: receiver
+        image: receiver-image:latest  # Update with your Docker image name for App 2
+        imagePullPolicy: never
+        ports:
+        - containerPort: 5000
